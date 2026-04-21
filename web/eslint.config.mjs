@@ -10,7 +10,13 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  // Sanitize the compatibility layer to remove illegal top-level properties
+  ...compat.extends("next/core-web-vitals", "next/typescript").map((config) => {
+    if (config.name) {
+      delete config.name;
+    }
+    return config;
+  }),
   {
     ignores: [
       "node_modules/**",
