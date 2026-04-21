@@ -1,0 +1,29 @@
+# General / OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+*.swp
+.env
+.env.local
+.env.*.local
+
+# API (Spring Boot / Maven)
+api/target/
+api/bin/
+api/*.jar
+api/*.war
+api/*.ear
+api/.metadata
+api/.classpath
+api/.project
+api/.settings/
+api/HELP.md
+
+# Maven wrapper binaries
+!api/.mvn/wrapper/maven-wrapper.jar
+
+# Infrastructure / Docker
+mysql_data/
+.docker/
