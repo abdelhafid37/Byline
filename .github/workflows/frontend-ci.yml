@@ -28,6 +28,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
@@ -35,10 +38,8 @@ jobs:
           cache: "yarn"
           cache-dependency-path: web/yarn.lock
 
-      - name: Enable Corepack (Yarn 4)
-        run: |
-          corepack enable
-          corepack prepare yarn@4.13.0 --activate
+      - name: Prepare Yarn
+        run: corepack prepare yarn@4.13.0 --activate
 
       - name: Install Dependencies
         run: yarn install --immutable
