@@ -1,19 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { nextWithPlugins } from "@next/eslint-plugin-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
+/** @type {import('eslint').Linter.Config[]} */
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript").map((config) => {
-    const { name, ...rest } = config;
-    return rest;
+  ...nextWithPlugins({
+    plugins: ["core-web-vitals", "typescript"],
   }),
   {
     ignores: [
