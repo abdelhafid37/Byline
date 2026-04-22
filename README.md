@@ -6,7 +6,7 @@ Byline is a high-end editorial blog platform designed for visual storytelling, t
 
 The project is organized as a monorepo-lite, separating the frontend and backend into isolated directories for clean boundaries and easier deployment.
 
-- **`/web`**: Next.js 15, React, TypeScript, and Tailwind CSS v4.
+- **`/web`**: Next.js 16, React 19, TypeScript, and Tailwind CSS v4.
 - **`/api`**: Spring Boot 3.4+ (JDK 25) and MySQL.
 
 ---
@@ -15,11 +15,12 @@ The project is organized as a monorepo-lite, separating the frontend and backend
 
 ### Frontend (`/web`)
 
-- **Framework:** Next.js 15 (App Router, Server Components)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4 (CSS-first configuration)
-- **Package Manager:** Yarn Berry (v4+) with Zero Installs
-- **Animations:** Framer Motion
+- **Framework:** **Next.js 16** (App Router, Enhanced Server Actions)
+- **Engine:** **Turbopack** (Default Bundler)
+- **Language:** TypeScript 5.x
+- **Styling:** Tailwind CSS v4 (High-performance CSS-first engine)
+- **Package Manager:** **Yarn 4 (Berry)** with Plug'n'Play (PnP)
+- **Linter:** ESLint 9+ (Flat Config)
 
 ### Backend (`/api`)
 
@@ -34,10 +35,12 @@ The project is organized as a monorepo-lite, separating the frontend and backend
 
 ```text
 byline/
-├── web/                  # Frontend Next.js application
+├── web/                  # Frontend Next.js 16 application
 │   └── ...
 ├── api/                  # Backend Spring Boot application
 │   └── ...
+├── .github/
+│   └── workflows/        # Automated CI/CD Pipelines
 └── docker-compose.yml    # Local database orchestration
 ```
 
@@ -47,19 +50,17 @@ byline/
 
 ### Prerequisites
 
-- Node.js (LTS version)
-- JDK 25
-- Docker (Optional, but recommended for MySQL setup)
+- **Node.js 22+** (Recommended for Next.js 16)
+- **JDK 25**
+- **Docker** (For local database containerization)
 
 ### Database Setup
 
-To run the database locally using Docker, execute the following command in the project root:
+To run the database locally using Docker:
 
 ```bash
 docker-compose up -d
 ```
-
-If setting up MySQL manually, create a database named `byline` and update the database credentials in `api/src/main/resources/application.yml`.
 
 ### Backend Setup (`/api`)
 
@@ -67,7 +68,7 @@ If setting up MySQL manually, create a database named `byline` and update the da
    ```bash
    cd api
    ```
-2. Run the application using the Maven wrapper:
+2. Run the application:
    ```bash
    ./mvnw spring-boot:run
    ```
@@ -78,8 +79,13 @@ If setting up MySQL manually, create a database named `byline` and update the da
    ```bash
    cd web
    ```
-2. Since this project uses Yarn Berry with Zero Installs, package dependencies are checked into the repository. You can start the development server immediately:
+2. Ensure Corepack is enabled for **Yarn 4**:
    ```bash
+   corepack enable
+   ```
+3. Install and run:
+   ```bash
+   yarn install
    yarn dev
    ```
 
@@ -88,13 +94,33 @@ If setting up MySQL manually, create a database named `byline` and update the da
 ## Core Features
 
 - **Editorial Layout:** Clean, magazine-style layouts mimicking professional design journals.
-- **Dynamic Slugs:** Clean URLs for post sharing and SEO.
-- **Read-Time Calculation:** Automated computation of article length displayed on cards and headers.
+- **Turbopack-Optimized:** Lightning-fast HMR (Hot Module Replacement) and build times.
+- **Server-First Logic:** Leveraging React 19 Server Components for minimal client-side JS.
 - **Responsive Typography:** Fluid scaling across mobile, tablet, and desktop viewports.
 
 ---
 
 ## Development Guidelines
 
-- **Git Workflow:** Create feature branches from `main` (e.g., `feature/post-listing`) and merge via pull requests.
-- **Environment Variables:** Create a `.env.local` file in the `/web` directory to point to the backend API URL. Never commit sensitive credentials or environment files to version control.
+- **Senior Standards:** We prioritize **Clean Architecture**, **Architectural Decision Records (ADR)**, and **Deterministic UI**.
+- **CI/CD:** Every PR triggers the `Frontend CI` pipeline, ensuring all Type Checks and Linting pass before merging.
+- **Linting:** We use the ESLint 9 Flat Config. To check your code manually, run:
+  ```bash
+  yarn lint
+  ```
+- **Type Checking:** Strictly enforced via:
+  ```bash
+  yarn type-check
+  ```
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file in the `/web` directory.
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+```
+
+> **Note:** Never commit `.env` files. Ensure they are listed in your `.gitignore`.
