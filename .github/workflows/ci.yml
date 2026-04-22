@@ -2,11 +2,11 @@ name: Frontend CI
 
 on:
   push:
-    branches: [master, dev]
+    branches: [master, main]
     paths:
       - "web/**"
   pull_request:
-    branches: [master, dev]
+    branches: [master, main]
     paths:
       - "web/**"
 
@@ -23,15 +23,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: sudo corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "yarn"
           cache-dependency-path: web/yarn.lock
-
-      - name: Enable Corepack
-        run: sudo corepack enable
 
       - name: Install dependencies
         run: yarn install --immutable
