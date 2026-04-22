@@ -1,0 +1,46 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [master, dev]
+    paths:
+      - "web/**"
+  pull_request:
+    branches: [master, dev]
+    paths:
+      - "web/**"
+
+defaults:
+  run:
+    working-directory: web
+
+jobs:
+  ci:
+    name: Lint, Type Check & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "yarn"
+          cache-dependency-path: web/yarn.lock
+
+      - name: Enable Corepack
+        run: sudo corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Type check
+        run: yarn typecheck
+
+      - name: Build
+        run: yarn build
