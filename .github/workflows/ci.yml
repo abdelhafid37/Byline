@@ -2,11 +2,11 @@ name: Frontend CI
 
 on:
   push:
-    branches: [master, main]
+    branches: [master, dev]
     paths:
       - "web/**"
   pull_request:
-    branches: [master, main]
+    branches: [master, dev]
     paths:
       - "web/**"
 
