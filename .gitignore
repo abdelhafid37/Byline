@@ -27,3 +27,6 @@ api/HELP.md
 # Infrastructure / Docker
 mysql_data/
 .docker/
+
+# docs!
+docs
